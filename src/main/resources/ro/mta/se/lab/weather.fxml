@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="367.0" prefWidth="749.0" spacing="20.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ro.mta.se.lab.WeatherController">
+<VBox alignment="CENTER" prefHeight="367.0" prefWidth="749.0" spacing="20.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ro.mta.se.lab.controller.WeatherController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
@@ -37,7 +38,7 @@
                 <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="177.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="16.0" prefWidth="243.0" text="Bucharest">
+                  <Label fx:id="cityLabel" prefHeight="16.0" prefWidth="243.0">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
@@ -45,7 +46,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="16.0" prefWidth="154.0" text="Tuesday 08:00 PM" textFill="#908484" GridPane.rowIndex="1">
+                  <Label fx:id="dateLabel" prefHeight="16.0" prefWidth="154.0" textFill="#908484" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
@@ -53,7 +54,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="16.0" prefWidth="288.0" text="Light Rain Showers" textFill="#908484" GridPane.rowIndex="2">
+                  <Label fx:id="descriptionLabel" prefHeight="16.0" prefWidth="288.0" textFill="#908484" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
@@ -63,43 +64,43 @@
                   </Label>
                   <GridPane GridPane.rowIndex="3">
                     <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="155.0" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="66.0" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="172.0" minWidth="0.0" prefWidth="20.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="151.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="83.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="172.0" minWidth="0.0" prefWidth="24.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="9.0" prefWidth="23.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="92.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="74.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/02d.png" />
-                           </image>
+                        <ImageView fx:id="weatherStatusImage" fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                         </ImageView>
-                        <Label prefHeight="49.0" prefWidth="55.0" text="22" GridPane.columnIndex="1">
+                        <Label fx:id="temperatureLabel" alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="71.0" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                            <font>
-                              <Font size="40.0" />
+                              <Font size="31.0" />
                            </font>
                         </Label>
-                        <Label text="o" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <Label fx:id="gradeSymbolLabel" text="o" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets top="65.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="C" GridPane.columnIndex="3" GridPane.valignment="TOP">
+                        <Label fx:id="gradeLabel" text="C" GridPane.columnIndex="3" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets top="70.0" />
                            </GridPane.margin>
                         </Label>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
-                           <image>
-                              <Image url="@../../../../images/refresh.png" />
-                           </image>
+                        <ImageView fx:id="refreshImageView" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#refreshSelectedData" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+                            <image>
+                                <Image url="@../../../../images/refresh.png" />
+                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </GridPane>
@@ -117,12 +118,12 @@
                   <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="65.0" valignment="TOP" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="20.0" prefWidth="140.0" text="Humidity: 99%" textFill="#908484" GridPane.rowIndex="1">
+                  <Label fx:id="humidityLabel" prefHeight="20.0" prefWidth="157.0" textFill="#908484" GridPane.rowIndex="1">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="20.0" prefWidth="138.0" text="Wind: 5km/h" textFill="#908484" GridPane.rowIndex="2">
+                  <Label fx:id="windLabel" prefHeight="20.0" prefWidth="157.0" textFill="#908484" GridPane.rowIndex="2">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -140,7 +141,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ComboBox prefWidth="150.0" GridPane.rowIndex="1">
+                  <ComboBox fx:id="countryCombobox" onAction="#onChangeCountry" prefWidth="150.0" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="40.0" />
                      </GridPane.margin>
@@ -163,7 +164,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ComboBox prefWidth="150.0" GridPane.rowIndex="1">
+                  <ComboBox fx:id="cityCombobox" onAction="#onChangeCity" prefWidth="150.0" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="70.0" />
                      </GridPane.margin>
