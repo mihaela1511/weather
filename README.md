@@ -2,7 +2,7 @@
 
 > Aceasta aplicatie permite vizualizarea detaliilor vremii dintr-un oras pe baza datelor puse la dispozitie de [openweathermap.org][df1].
 
-Pacehtul de baza al aplicatiei este *ro.mta.se.lab*. Acesta cuprinde la randul lui mai multe pachete:
+Pachetul de baza al aplicatiei este *ro.mta.se.lab*. Acesta cuprinde la randul lui mai multe pachete:
  - *api*: se ocupa de aducerea si parsarea datelor puse la dispozitie de openweathermap
  - *parser*: se ocupa de parsarea fisierului ce contine datele initiale
  - *logger*: se ocupa de salvarea interogarilor anterioare intr-un fisier
