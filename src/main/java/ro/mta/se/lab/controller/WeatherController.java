@@ -13,6 +13,7 @@ import ro.mta.se.lab.parser.InputFileParser;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WeatherController {
@@ -54,24 +55,17 @@ public class WeatherController {
     public ImageView refreshImageView;
 
 
-    public List<LocationModel> locations;
+    private List<LocationModel> locations;
 
     public void loadInitialData() {
         gradeLabel.setVisible(false);
         gradeSymbolLabel.setVisible(false);
         refreshImageView.setVisible(false);
-        InputFileParser inputFileParser = new InputFileParser();
-        locations = inputFileParser.loadLocationsFromFile(ApplicationConstants.INITIAL_DATA_FILE);
-        countryCombobox.getItems().addAll(locations.stream()
-                .map(locationModel -> {
-                    Locale locale = new Locale(ApplicationConstants.LANGUAGE, locationModel.getCountryCode());
-                    return locale.getDisplayCountry();
-                })
-                .collect(Collectors.toSet()));
+        countryCombobox.getItems().addAll(getCountries());
     }
 
     @FXML
-    public void onChangeCountry() {
+    private void onChangeCountry() {
         windLabel.setText(ApplicationConstants.EMPTY_STRING);
         temperatureLabel.setText(ApplicationConstants.EMPTY_STRING);
         humidityLabel.setText(ApplicationConstants.EMPTY_STRING);
@@ -83,17 +77,11 @@ public class WeatherController {
         gradeSymbolLabel.setVisible(false);
         refreshImageView.setVisible(false);
         String selectedCountry = countryCombobox.getSelectionModel().getSelectedItem();
-        cityCombobox.getItems().setAll(locations.stream()
-                .filter(locationModel -> {
-                    Locale locale = new Locale(ApplicationConstants.LANGUAGE, locationModel.getCountryCode());
-                    return locale.getDisplayCountry().equals(selectedCountry);
-                })
-                .map(locationModel -> locationModel.getCityName())
-                .collect(Collectors.toList()));
+        cityCombobox.getItems().setAll(getCities(selectedCountry));
     }
 
     @FXML
-    public void onChangeCity() {
+    private void onChangeCity() {
         String selectedCity = cityCombobox.getSelectionModel().getSelectedItem();
         LocationModel locationModel = locations.stream().filter(locationModelFiltered ->
                 locationModelFiltered.getCityName().equals(selectedCity)).findFirst().get();
@@ -116,8 +104,29 @@ public class WeatherController {
     }
 
     @FXML
-    public void refreshSelectedData() {
+    private void refreshSelectedData() {
         onChangeCity();
+    }
+
+    public Set<String> getCountries() {
+        InputFileParser inputFileParser = new InputFileParser();
+        locations = inputFileParser.loadLocationsFromFile(ApplicationConstants.INITIAL_DATA_FILE);
+        return locations.stream()
+                .map(locationModel -> {
+                    Locale locale = new Locale(ApplicationConstants.LANGUAGE, locationModel.getCountryCode());
+                    return locale.getDisplayCountry();
+                })
+                .collect(Collectors.toSet());
+    }
+
+    public List<String> getCities(String selectedCountry) {
+        return locations.stream()
+                .filter(locationModel -> {
+                    Locale locale = new Locale(ApplicationConstants.LANGUAGE, locationModel.getCountryCode());
+                    return locale.getDisplayCountry().equals(selectedCountry);
+                })
+                .map(locationModel -> locationModel.getCityName())
+                .collect(Collectors.toList());
     }
 
 }

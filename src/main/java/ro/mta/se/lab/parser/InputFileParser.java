@@ -44,8 +44,10 @@ public class InputFileParser {
                 namePart = false;
             } catch (NumberFormatException ex) {
                 namePart = true;
-                locationModel.setCityName(locationModel.getCityName()
-                        .concat(ApplicationConstants.EMPTY_SPACE).concat(rowElements[i]));
+                if(!locationModel.getCityName().isEmpty()){
+                    locationModel.setCityName(locationModel.getCityName().concat(ApplicationConstants.EMPTY_SPACE));
+                }
+                locationModel.setCityName(locationModel.getCityName().concat(rowElements[i]));
                 i++;
             }
         }
